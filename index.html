@@ -46,7 +46,7 @@
   }
 
   .beat {
-    width: 64px;
+    width: 72px;
     height: 72px;
     border-radius: 10px;
     background: #1C1007;
@@ -66,7 +66,7 @@
   }
 
   .beat .note {
-    font-size: 1rem;
+    font-size: 0.65rem;
     font-weight: 700;
     color: #ccc;
   }
@@ -205,7 +205,7 @@
   <div class="beats">
     <div class="beat" data-beat="0">
       <span class="label">1</span>
-      <span class="note">Pa</span>
+      <span class="note">Panchamam</span>
     </div>
     <div class="beat rest" data-beat="1">
       <span class="label">2</span>
@@ -213,15 +213,15 @@
     </div>
     <div class="beat" data-beat="2">
       <span class="label">3</span>
-      <span class="note">Sa</span>
+      <span class="note">Sarani</span>
     </div>
     <div class="beat" data-beat="3">
       <span class="label">4</span>
-      <span class="note">Sa</span>
+      <span class="note">Anusarani</span>
     </div>
     <div class="beat" data-beat="4">
       <span class="label">5</span>
-      <span class="note">Kharaj</span>
+      <span class="note">Mandram</span>
     </div>
     <div class="beat rest" data-beat="5">
       <span class="label">6</span>
@@ -240,8 +240,8 @@
         <option value="45">A2</option>
         <option value="46">A#2</option>
         <option value="47">B2</option>
-        <option value="48">C3</option>
-        <option value="49" selected>C#3</option>
+        <option value="48" selected>C3</option>
+        <option value="49">C#3</option>
         <option value="50">D3</option>
         <option value="51">D#3</option>
         <option value="52">E3</option>
@@ -258,13 +258,13 @@
         <option value="63">D#4</option>
         <option value="64">E4</option>
       </select>
-      <span class="freq-value" id="freqValue">138.59 Hz</span>
+      <span class="freq-value" id="freqValue">130.81 Hz</span>
     </div>
     <div class="control-row">
       <label for="bpm">BPM</label>
       <div class="slider-group">
-        <input type="range" id="bpm" min="40" max="120" value="60">
-        <span class="bpm-value" id="bpmValue">60</span>
+        <input type="range" id="bpm" min="40" max="120" value="100">
+        <span class="bpm-value" id="bpmValue">100</span>
       </div>
     </div>
   </div>
