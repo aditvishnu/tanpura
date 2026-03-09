@@ -132,7 +132,7 @@
     align-items: center;
     gap: 12px;
     width: 100%;
-    max-width: 320px;
+    max-width: 352px;
   }
 
   .control-row label {
@@ -160,34 +160,19 @@
     border-color: #C47A3A;
   }
 
-  .slider-group {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
   input[type="range"] {
     flex: 1;
     accent-color: #C47A3A;
     cursor: pointer;
   }
 
-  .freq-value {
+  .freq-value, .bpm-value {
     font-size: 0.85rem;
     color: #C47A3A;
     font-weight: 700;
     min-width: 72px;
     text-align: right;
     flex-shrink: 0;
-  }
-
-  .bpm-value {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #C47A3A;
-    min-width: 32px;
-    text-align: left;
   }
 
   .loading {
@@ -270,11 +255,9 @@
       <span class="freq-value" id="string1FreqValue">196.00 Hz</span>
     </div>
     <div class="control-row">
-      <label for="bpm">BPM</label>
-      <div class="slider-group">
-        <input type="range" id="bpm" min="40" max="120" value="100">
-        <span class="bpm-value" id="bpmValue">100</span>
-      </div>
+      <label for="bpm">Tempo</label>
+      <input type="range" id="bpm" min="40" max="120" value="100">
+      <span class="bpm-value" id="bpmValue">100 BPM</span>
     </div>
   </div>
 
@@ -488,7 +471,7 @@
   });
 
   bpmSlider.addEventListener('input', function () {
-    bpmValue.textContent = this.value;
+    bpmValue.textContent = this.value + ' BPM';
   });
 
   function updateFreqDisplay() {
