@@ -139,7 +139,7 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: #aaa;
-    width: 50px;
+    width: 65px;
     text-align: right;
     flex-shrink: 0;
   }
@@ -235,7 +235,7 @@
 
   <div class="controls">
     <div class="control-row">
-      <label for="pitch">Pitch</label>
+      <label for="pitch">Sruthi</label>
       <select id="pitch">
         <option value="45">A2</option>
         <option value="46">A#2</option>
@@ -261,6 +261,14 @@
       <span class="freq-value" id="freqValue">130.81 Hz</span>
     </div>
     <div class="control-row">
+      <label for="string1">Ma Pa Ni</label>
+      <select id="string1">
+        <option value="Ma">Madhyamam</option>
+        <option value="Pa" selected>Panchamam</option>
+        <option value="Ni">Nishadam</option>
+      </select>
+    </div>
+    <div class="control-row">
       <label for="bpm">BPM</label>
       <div class="slider-group">
         <input type="range" id="bpm" min="40" max="120" value="100">
@@ -283,6 +291,7 @@
 
   // --- DOM ---
   const playBtn = document.getElementById('playBtn');
+  const string1Sel = document.getElementById('string1');
   const pitchSel = document.getElementById('pitch');
   const bpmSlider = document.getElementById('bpm');
   const bpmValue = document.getElementById('bpmValue');
@@ -291,16 +300,25 @@
   const beatEls = document.querySelectorAll('.beat');
 
   // --- Beat pattern: [stringName or null for rest] ---
+  // pattern[0] is dynamic — Pa, Ma, or Ni depending on string1 selector
   const pattern = ['Pa', null, 'Sa', 'Sa', 'Kharaj', null];
 
   // --- Sample catalog ---
   // Each sample: { file, midi, buffer }
   // midi = the actual sounding MIDI note of the recording
-  // Pa sounds a 5th above root, Sa at root, Kharaj an octave below root
   const sampleCatalog = {
     Pa: [
       { file: 'samples/Tanpura_C%233_Pa.wav', midi: 56 },       // G#3
       { file: 'samples/Tanpura_C%233Alt_Pa.wav', midi: 56 },     // G#3 alt
+    ],
+    // Ma uses the Pa samples (same string, pitched down 2 semitones)
+    Ma: [
+      { file: 'samples/Tanpura_C%233_Pa.wav', midi: 56 },
+      { file: 'samples/Tanpura_C%233Alt_Pa.wav', midi: 56 },
+    ],
+    // Ni sample recorded at C4 (= C#3 + 11, Kakali Nishadam)
+    Ni: [
+      { file: 'samples/Tanpura_C%233_Ni.wav', midi: 60 },        // C4
     ],
     Sa: [
       { file: 'samples/Tanpura_C%233_Sa.wav', midi: 49 },        // C#3
@@ -325,7 +343,9 @@
 
   // Target MIDI note for each string given root
   function getTargetMidi(stringName, rootMidi) {
-    if (stringName === 'Pa') return rootMidi + 7;
+    if (stringName === 'Pa') return rootMidi + 7;  // perfect 5th
+    if (stringName === 'Ma') return rootMidi + 5;  // perfect 4th
+    if (stringName === 'Ni') return rootMidi + 11; // major 7th
     if (stringName === 'Kharaj') return rootMidi - 12;
     return rootMidi; // Sa
   }
@@ -474,6 +494,14 @@
   }
 
   pitchSel.addEventListener('change', updateFreqDisplay);
+
+  const string1Labels = { Ma: 'Madhyamam', Pa: 'Panchamam', Ni: 'Nishadam' };
+  const beat1NoteEl = beatEls[0].querySelector('.note');
+
+  string1Sel.addEventListener('change', function () {
+    pattern[0] = this.value;
+    beat1NoteEl.textContent = string1Labels[this.value];
+  });
 
   // --- Init ---
   loadSamples();
